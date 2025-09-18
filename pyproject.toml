@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "papercheck-db"
+version = "0.1.0"
+description = "Config and API for papercheck database -> datasets, papers, extractors, extractor evaluations"
+authors = ["scienceverse"]
+readme = "README.md"
+packages = [{include = "papercheck_db"}]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+sqlalchemy = "^2.0.0"
+alembic = "^1.14.0"
+fastapi = "^0.115.0"
+psycopg2-binary = "^2.9.0"
+pydantic-settings = "^2.6.0"
+uvicorn = "^0.32.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+pytest-asyncio = "^0.25.0"
+black = "^24.0.0"
+ruff = "^0.8.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
