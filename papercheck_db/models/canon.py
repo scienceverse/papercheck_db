@@ -8,9 +8,9 @@ from .base import BaseModel
 
 class Canon(BaseModel):
     """Canon model representing ground truth extraction for papers."""
-
+    
     __tablename__ = "canons"
-
+    
     # Reference to paper
     paper_id = Column(Integer, ForeignKey("papers.id"), nullable=False, index=True)
 

@@ -18,7 +18,3 @@ class BaseModel(Base):
         DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False
     )
 
-    @declared_attr
-    def __tablename__(cls):
-        """Generate table name from class name."""
-        return cls.__name__.lower()

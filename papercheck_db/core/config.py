@@ -13,15 +13,15 @@ class Settings(BaseSettings):
     )
 
     # Database settings
-    database_url: Optional[str] = Field(default=None, description="PostgreSQL database URL")
-    postgres_user: Optional[str] = Field(
-        default=None, description="PostgreSQL username"
+    database_url: str = Field(default='localhost', description="PostgreSQL database URL")
+    postgres_user: str = Field(
+        default='admin', description="PostgreSQL username"
     )
-    postgres_password: Optional[str] = Field(
-        default=None, description="PostgreSQL password"
+    postgres_password: str = Field(
+        default='admin', description="PostgreSQL password"
     )
-    postgres_db: Optional[str] = Field(
-        default=None, description="PostgreSQL database name"
+    postgres_db: str = Field(
+        default='papercheck_dev', description="PostgreSQL database name"
     )
     postgres_host: str = Field(default="localhost", description="PostgreSQL host")
     postgres_port: int = Field(default=5432, description="PostgreSQL port")
