@@ -2,6 +2,7 @@
 
 from sqlalchemy import Column, String, Text, Table, ForeignKey
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import ARRAY
 
 from .base import BaseModel
 
@@ -26,9 +27,11 @@ class Dataset(BaseModel):
     version = Column(String(50), nullable=True)
 
     # Metadata
-    tags = Column(Text, nullable=True)  # JSON string or comma-separated
     source = Column(String(255), nullable=True)
     license = Column(String(100), nullable=True)
+
+    folder_path = Column(String(500), nullable=True)  # Path to dataset folder if applicable
+
 
     # Relationships
     papers = relationship(
