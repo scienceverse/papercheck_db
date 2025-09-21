@@ -13,7 +13,7 @@ class Settings(BaseSettings):
     )
 
     # Database settings
-    database_url: str = Field(description="PostgreSQL database URL")
+    database_url: Optional[str] = Field(default=None, description="PostgreSQL database URL")
     postgres_user: Optional[str] = Field(
         default=None, description="PostgreSQL username"
     )
@@ -25,13 +25,6 @@ class Settings(BaseSettings):
     )
     postgres_host: str = Field(default="localhost", description="PostgreSQL host")
     postgres_port: int = Field(default=5432, description="PostgreSQL port")
-
-    # FastAPI settings
-    debug: bool = Field(default=False, description="Debug mode")
-    secret_key: str = Field(
-        description="Secret key for JWT and other crypto operations"
-    )
-    api_v1_str: str = Field(default="/api/v1", description="API v1 prefix")
 
     # Environment
     environment: str = Field(default="development", description="Environment name")
