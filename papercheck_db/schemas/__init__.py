@@ -3,7 +3,7 @@
 from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
 from .paper import Paper, PaperCreate, PaperUpdate, PaperSummary
 from .dataset import Dataset, DatasetCreate, DatasetUpdate, DatasetSummary
-from .canon import Canon, CanonCreate, CanonUpdate, CanonSummary
+from .ground_truth import GroundTruth, GroundTruthCreate, GroundTruthUpdate, GroundTruthSummary
 from .extractor import Extractor, ExtractorCreate, ExtractorUpdate, ExtractorSummary
 from .extract import Extract, ExtractCreate, ExtractUpdate, ExtractSummary
 from .extractoreval import (
@@ -29,10 +29,10 @@ __all__ = [
     "DatasetUpdate",
     "DatasetSummary",
     # Canon schemas
-    "Canon",
-    "CanonCreate",
-    "CanonUpdate",
-    "CanonSummary",
+    "GroundTruth",
+    "GroundTruthCreate",
+    "GroundTruthUpdate",
+    "GroundTruthSummary",
     # Extractor schemas
     "Extractor",
     "ExtractorCreate",

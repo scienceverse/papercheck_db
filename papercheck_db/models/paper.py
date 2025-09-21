@@ -1,7 +1,8 @@
 """Paper model - core document entities."""
 
-from sqlalchemy import Column, String, Text, Boolean
+from sqlalchemy import Column, String, Text, Boolean, Integer
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import JSONB, ARRAY
 
 from .base import BaseModel
 
@@ -11,27 +12,20 @@ class Paper(BaseModel):
 
     __tablename__ = "papers"
 
-    # Core paper information
-    doi = Column(String(255), unique=True, index=True, nullable=True)
-    title = Column(Text, nullable=False)
-    abstract = Column(Text, nullable=True)
-    authors = Column(Text, nullable=True)  # JSON string or comma-separated
-    publication_date = Column(String(50), nullable=True)  # Allow flexible date formats
-    journal = Column(String(255), nullable=True)
-
     # File information
     pdf_path = Column(String(500), nullable=True)
     pdf_url = Column(String(500), nullable=True)
 
-    # Processing status
-    is_processed = Column(Boolean, default=False, nullable=False)
-    processing_status = Column(String(100), default="pending", nullable=False)
+    pdf_hash = Column(String(64), unique=True, nullable=True, index=True)  # SHA-256 hash of the PDF
+
+    pdf_start_page = Column(Integer, default=1, nullable=False)
+    pdf_last_page = Column(Integer, nullable=True)  # last page number that is taken into account
 
     # Relationships
     extracts = relationship(
         "Extract", back_populates="paper", cascade="all, delete-orphan"
     )
-    canons = relationship("Canon", back_populates="paper", cascade="all, delete-orphan")
+    ground_truth = relationship("GroundTruth", back_populates="paper", cascade="all, delete-orphan", uselist=False)
     datasets = relationship(
         "Dataset", secondary="dataset_papers", back_populates="papers"
     )

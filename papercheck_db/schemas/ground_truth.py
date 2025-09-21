@@ -6,7 +6,7 @@ from pydantic import Field
 from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
 
 
-class CanonBase(BaseCreateSchema):
+class GroundTruthBase(BaseCreateSchema):
     """Base canon schema with common fields."""
 
     paper_id: int = Field(..., description="ID of associated paper")
@@ -31,13 +31,13 @@ class CanonBase(BaseCreateSchema):
     review_notes: Optional[str] = Field(None, description="Review notes")
 
 
-class CanonCreate(CanonBase):
+class GroundTruthCreate(GroundTruthBase):
     """Schema for creating a canon."""
 
     pass
 
 
-class CanonUpdate(BaseUpdateSchema):
+class GroundTruthUpdate(BaseUpdateSchema):
     """Schema for updating a canon."""
 
     name: Optional[str] = Field(None, max_length=255)
@@ -53,13 +53,13 @@ class CanonUpdate(BaseUpdateSchema):
     review_notes: Optional[str] = Field(None)
 
 
-class Canon(BaseSchema, CanonBase):
+class GroundTruth(BaseSchema, GroundTruthBase):
     """Complete canon schema for responses."""
 
     pass
 
 
-class CanonSummary(BaseSchema):
+class GroundTruthSummary(BaseSchema):
     """Summary canon schema for list responses."""
 
     paper_id: int

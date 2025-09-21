@@ -22,7 +22,7 @@ def demo_schemas():
         PaperCreate, Paper,
         DatasetCreate, Dataset,
         ExtractorCreate, Extractor,
-        CanonCreate, Canon,
+        GroundTruth, GroundTruth,
         ExtractCreate, Extract,
         ExtractorEvalCreate, ExtractorEval
     )
@@ -82,14 +82,14 @@ def demo_model_relationships():
     """Demonstrate model relationships."""
     print("🔗 Demonstrating Model Relationships\n")
     
-    from papercheck_db.models import Paper, Dataset, Extractor, Extract, Canon
+    from papercheck_db.models import Paper, Dataset, Extractor, Extract, GroundTruth, ExtractorEval
     
     print("Model relationships:")
     print("- Papers ↔ Datasets (many-to-many via dataset_papers)")
     print("- Papers → Extracts (one-to-many)")
-    print("- Papers → Canons (one-to-many)")
+    print("- Papers → GroundTruths (one-to-many)")
     print("- Extractors → Extracts (one-to-many)")
-    print("- Extractors + Canons → ExtractorEvals (evaluation)")
+    print("- Extractors + GroundTruths → ExtractorEvals (evaluation)")
     print()
     
     print("Example table structures:")
@@ -107,8 +107,6 @@ def demo_configuration():
     print("Configuration settings:")
     print(f"- Environment: {settings.environment}")
     print(f"- Database URL: {settings.database_url}")
-    print(f"- API prefix: {settings.api_v1_str}")
-    print(f"- Debug mode: {settings.debug}")
     print(f"- Is development: {settings.is_development}")
     print(f"- Is production: {settings.is_production}")
     print()
