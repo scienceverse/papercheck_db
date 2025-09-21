@@ -1,6 +1,6 @@
 """Base model with common fields for all tables."""
 
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, DateTime
 from sqlalchemy.ext.declarative import declared_attr
 
@@ -13,9 +13,9 @@ class BaseModel(Base):
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, index=True)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=datetime.now(timezone.utc), nullable=False)
     updated_at = Column(
-        DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False
+        DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc), nullable=False
     )
 
     @declared_attr
