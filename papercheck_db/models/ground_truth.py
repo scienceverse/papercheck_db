@@ -8,7 +8,7 @@ from .base import BaseModel
 
 
 class GroundTruth(BaseModel):
-    """Canon model representing ground truth extraction for papers."""
+    """Ground Truth model representing ground truth extraction for papers."""
     
     __tablename__ = "ground_truths"
     
@@ -24,7 +24,7 @@ class GroundTruth(BaseModel):
     abstract = Column(Text, nullable=True)
     authors = Column(JSONB, nullable=True)  # JSON in papercheck format
     # Relationships
-    paper = relationship("Paper", back_populates="canons")
+    paper = relationship("Paper", back_populates="ground_truth", uselist=False)
     extractor_evals = relationship(
         "ExtractorEval", back_populates="ground_truth", cascade="all, delete-orphan"
     )
