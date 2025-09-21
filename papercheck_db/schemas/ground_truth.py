@@ -1,4 +1,4 @@
-"""Canon Pydantic schemas."""
+"""GroundTruth Pydantic schemas."""
 
 from typing import Optional, Dict, Any
 from pydantic import Field
@@ -7,12 +7,12 @@ from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
 
 
 class GroundTruthBase(BaseCreateSchema):
-    """Base canon schema with common fields."""
+    """Base ground truth schema with common fields."""
 
     paper_id: int = Field(..., description="ID of associated paper")
-    name: str = Field(..., max_length=255, description="Canon name")
-    description: Optional[str] = Field(None, description="Canon description")
-    version: Optional[str] = Field(None, max_length=50, description="Canon version")
+    name: str = Field(..., max_length=255, description="GroundTruth name")
+    description: Optional[str] = Field(None, description="GroundTruth description")
+    version: Optional[str] = Field(None, max_length=50, description="GroundTruth version")
     ground_truth_data: Dict[str, Any] = Field(
         ..., description="Structured ground truth data"
     )
@@ -32,13 +32,13 @@ class GroundTruthBase(BaseCreateSchema):
 
 
 class GroundTruthCreate(GroundTruthBase):
-    """Schema for creating a canon."""
+    """Schema for creating a ground truth."""
 
     pass
 
 
 class GroundTruthUpdate(BaseUpdateSchema):
-    """Schema for updating a canon."""
+    """Schema for updating a ground truth."""
 
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None)
@@ -54,13 +54,13 @@ class GroundTruthUpdate(BaseUpdateSchema):
 
 
 class GroundTruth(BaseSchema, GroundTruthBase):
-    """Complete canon schema for responses."""
+    """Complete ground truth schema for responses."""
 
     pass
 
 
 class GroundTruthSummary(BaseSchema):
-    """Summary canon schema for list responses."""
+    """Summary ground truth schema for list responses."""
 
     paper_id: int
     name: str
