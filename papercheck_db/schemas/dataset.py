@@ -1,9 +1,9 @@
 """Dataset Pydantic schemas."""
 
-from typing import Optional
+from typing import Optional, List
 from pydantic import Field
 
-from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
+from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema, BaseReadSchema, BaseDeleteSchema
 
 
 class DatasetBase(BaseCreateSchema):
@@ -12,12 +12,12 @@ class DatasetBase(BaseCreateSchema):
     name: str = Field(..., max_length=255, description="Dataset name")
     description: Optional[str] = Field(None, description="Dataset description")
     version: Optional[str] = Field(None, max_length=50, description="Dataset version")
-    tags: Optional[str] = Field(
-        None, description="Tags (JSON string or comma-separated)"
-    )
     source: Optional[str] = Field(None, max_length=255, description="Data source")
     license: Optional[str] = Field(
         None, max_length=100, description="License information"
+    )
+    folder_path: Optional[str] = Field(
+        None, max_length=500, description="Path to dataset folder"
     )
 
 
@@ -33,22 +33,36 @@ class DatasetUpdate(BaseUpdateSchema):
     name: Optional[str] = Field(None, max_length=255)
     description: Optional[str] = Field(None)
     version: Optional[str] = Field(None, max_length=50)
-    tags: Optional[str] = Field(None)
     source: Optional[str] = Field(None, max_length=255)
     license: Optional[str] = Field(None, max_length=100)
+    folder_path: Optional[str] = Field(None, max_length=500)
 
 
-class Dataset(BaseSchema, DatasetBase):
-    """Complete dataset schema for responses."""
+class DatasetRead(BaseReadSchema, DatasetBase):
+    """Schema for reading a dataset."""
 
-    # papers_count can be computed property
+    # The 'papers' field will be populated from the relationship
+    # To avoid circular dependency issues, we might not include the full PaperRead here
+    # depending on the use case. For now, we can omit it or use a forward reference.
+    # For simplicity, we'll define a minimal paper representation or just IDs.
+    papers: List[int] = Field([], description="List of paper IDs in the dataset")
+
+
+class DatasetDelete(BaseDeleteSchema):
+    """Schema for deleting a dataset."""
+
     pass
 
 
-class DatasetSummary(BaseSchema):
-    """Summary dataset schema for list responses."""
+class DatasetSummary(BaseReadSchema):
+    """Summary schema for dataset with minimal fields."""
 
     name: str
-    description: Optional[str]
-    version: Optional[str]
-    # papers_count: Optional[int] = Field(None, description="Number of papers in dataset")
+    description: Optional[str] = None
+    version: Optional[str] = None
+
+
+class Dataset(DatasetBase, BaseSchema):
+    """Complete dataset schema for responses, matching the DB model."""
+
+    pass

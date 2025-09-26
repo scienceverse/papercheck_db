@@ -1,34 +1,28 @@
 """GroundTruth Pydantic schemas."""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pydantic import Field
 
-from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
+from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema, BaseReadSchema, BaseDeleteSchema
 
 
 class GroundTruthBase(BaseCreateSchema):
     """Base ground truth schema with common fields."""
 
     paper_id: int = Field(..., description="ID of associated paper")
-    name: str = Field(..., max_length=255, description="GroundTruth name")
-    description: Optional[str] = Field(None, description="GroundTruth description")
-    version: Optional[str] = Field(None, max_length=50, description="GroundTruth version")
-    ground_truth_data: Dict[str, Any] = Field(
-        ..., description="Structured ground truth data"
+    title: Optional[str] = Field(None, description="Title of the paper")
+    doi: Optional[str] = Field(None, max_length=255, description="DOI of the paper")
+    authors: Optional[Dict[str, Any]] = Field(
+        None, description="List of authors"
     )
-    annotation_schema: Optional[Dict[str, Any]] = Field(
-        None, description="Annotation schema"
+    refs: Optional[Dict[str, Any]] = Field(
+        None, description="List of references"
     )
-    annotator: Optional[str] = Field(None, max_length=255, description="Annotator name")
-    annotation_date: Optional[str] = Field(
-        None, max_length=50, description="Annotation date"
+    xrefs: Optional[Dict[str, Any]] = Field(
+        None, description="List of cross-references"
     )
-    confidence_score: Optional[str] = Field(
-        None, max_length=50, description="Confidence score"
-    )
-    reviewed: str = Field("false", max_length=10, description="Review status")
-    reviewer: Optional[str] = Field(None, max_length=255, description="Reviewer name")
-    review_notes: Optional[str] = Field(None, description="Review notes")
+    abstract: Optional[str] = Field(None, description="Abstract text")
+    keywords: Optional[List[str]] = Field(None, description="List of keywords")
 
 
 class GroundTruthCreate(GroundTruthBase):
@@ -40,30 +34,36 @@ class GroundTruthCreate(GroundTruthBase):
 class GroundTruthUpdate(BaseUpdateSchema):
     """Schema for updating a ground truth."""
 
-    name: Optional[str] = Field(None, max_length=255)
-    description: Optional[str] = Field(None)
-    version: Optional[str] = Field(None, max_length=50)
-    ground_truth_data: Optional[Dict[str, Any]] = Field(None)
-    annotation_schema: Optional[Dict[str, Any]] = Field(None)
-    annotator: Optional[str] = Field(None, max_length=255)
-    annotation_date: Optional[str] = Field(None, max_length=50)
-    confidence_score: Optional[str] = Field(None, max_length=50)
-    reviewed: Optional[str] = Field(None, max_length=10)
-    reviewer: Optional[str] = Field(None, max_length=255)
-    review_notes: Optional[str] = Field(None)
+    title: Optional[str] = Field(None)
+    doi: Optional[str] = Field(None, max_length=255)
+    authors: Optional[Dict[str, Any]] = Field(None)
+    refs: Optional[Dict[str, Any]] = Field(None)
+    xrefs: Optional[Dict[str, Any]] = Field(None)
+    abstract: Optional[str] = Field(None)
+    keywords: Optional[List[str]] = Field(None)
 
 
-class GroundTruth(BaseSchema, GroundTruthBase):
-    """Complete ground truth schema for responses."""
+class GroundTruthRead(BaseReadSchema, GroundTruthBase):
+    """Schema for reading a ground truth."""
 
     pass
 
 
-class GroundTruthSummary(BaseSchema):
-    """Summary ground truth schema for list responses."""
+class GroundTruthDelete(BaseDeleteSchema):
+    """Schema for deleting a ground truth."""
+
+    pass
+
+
+class GroundTruthSummary(BaseReadSchema):
+    """Summary schema for ground truth with minimal fields."""
 
     paper_id: int
-    name: str
-    version: Optional[str]
-    annotator: Optional[str]
-    reviewed: str
+    title: Optional[str] = None
+    doi: Optional[str] = None
+
+
+class GroundTruth(GroundTruthBase, BaseSchema):
+    """Complete ground truth schema for responses, matching the DB model."""
+
+    pass

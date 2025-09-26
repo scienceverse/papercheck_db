@@ -1,9 +1,9 @@
 """Extract Pydantic schemas."""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pydantic import Field
 
-from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
+from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema, BaseReadSchema, BaseDeleteSchema
 
 
 class ExtractBase(BaseCreateSchema):
@@ -14,28 +14,26 @@ class ExtractBase(BaseCreateSchema):
     extraction_date: Optional[str] = Field(
         None, max_length=50, description="Extraction date"
     )
-    extractor_version: Optional[str] = Field(
-        None, max_length=50, description="Extractor version used"
+    extracted_title: Optional[str] = Field(None, description="Extracted title")
+    extracted_doi: Optional[str] = Field(None, max_length=255, description="Extracted DOI")
+    extracted_authors: Optional[Dict[str, Any]] = Field(
+        None, description="Extracted authors"
     )
-    config_used: Optional[Dict[str, Any]] = Field(
-        None, description="Configuration used"
+    extracted_refs: Optional[Dict[str, Any]] = Field(
+        None, description="Extracted references"
     )
-    extracted_data: Dict[str, Any] = Field(..., description="Extracted data")
-    raw_output: Optional[str] = Field(None, description="Raw extractor output")
+    extracted_xrefs: Optional[Dict[str, Any]] = Field(
+        None, description="Extracted cross-references"
+    )
+    extracted_abstract: Optional[str] = Field(None, description="Extracted abstract")
+    extracted_keywords: Optional[List[str]] = Field(
+        None, description="Extracted keywords"
+    )
     processing_time_seconds: Optional[float] = Field(
         None, description="Processing time in seconds"
     )
     status: str = Field("completed", max_length=50, description="Extraction status")
     error_message: Optional[str] = Field(None, description="Error message if failed")
-    confidence_scores: Optional[Dict[str, Any]] = Field(
-        None, description="Confidence scores"
-    )
-    extraction_quality: Optional[str] = Field(
-        None, max_length=50, description="Overall quality"
-    )
-    is_validated: str = Field("false", max_length=10, description="Validation status")
-    validator: Optional[str] = Field(None, max_length=255, description="Validator name")
-    validation_notes: Optional[str] = Field(None, description="Validation notes")
 
 
 class ExtractCreate(ExtractBase):
@@ -48,31 +46,40 @@ class ExtractUpdate(BaseUpdateSchema):
     """Schema for updating an extract."""
 
     extraction_date: Optional[str] = Field(None, max_length=50)
-    extractor_version: Optional[str] = Field(None, max_length=50)
-    config_used: Optional[Dict[str, Any]] = Field(None)
-    extracted_data: Optional[Dict[str, Any]] = Field(None)
-    raw_output: Optional[str] = Field(None)
+    extracted_title: Optional[str] = Field(None)
+    extracted_doi: Optional[str] = Field(None, max_length=255)
+    extracted_authors: Optional[Dict[str, Any]] = Field(None)
+    extracted_refs: Optional[Dict[str, Any]] = Field(None)
+    extracted_xrefs: Optional[Dict[str, Any]] = Field(None)
+    extracted_abstract: Optional[str] = Field(None)
+    extracted_keywords: Optional[List[str]] = Field(None)
     processing_time_seconds: Optional[float] = Field(None)
     status: Optional[str] = Field(None, max_length=50)
     error_message: Optional[str] = Field(None)
-    confidence_scores: Optional[Dict[str, Any]] = Field(None)
-    extraction_quality: Optional[str] = Field(None, max_length=50)
-    is_validated: Optional[str] = Field(None, max_length=10)
-    validator: Optional[str] = Field(None, max_length=255)
-    validation_notes: Optional[str] = Field(None)
 
 
-class Extract(BaseSchema, ExtractBase):
-    """Complete extract schema for responses."""
+class ExtractRead(BaseReadSchema, ExtractBase):
+    """Schema for reading an extract."""
 
     pass
 
 
-class ExtractSummary(BaseSchema):
-    """Summary extract schema for list responses."""
+class ExtractDelete(BaseDeleteSchema):
+    """Schema for deleting an extract."""
+
+    pass
+
+
+class ExtractSummary(BaseReadSchema):
+    """Summary schema for extract with minimal fields."""
 
     paper_id: int
     extractor_id: int
-    status: str
-    extraction_quality: Optional[str]
-    is_validated: str
+    extracted_title: Optional[str] = None
+    status: str = "completed"
+
+
+class Extract(ExtractBase, BaseSchema):
+    """Complete extract schema for responses, matching the DB model."""
+
+    pass

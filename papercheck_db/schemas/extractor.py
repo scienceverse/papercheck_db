@@ -1,9 +1,9 @@
 """Extractor Pydantic schemas."""
 
-from typing import Optional, Dict, Any
+from typing import Optional, Dict, Any, List
 from pydantic import Field
 
-from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
+from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema, BaseReadSchema, BaseDeleteSchema
 
 
 class ExtractorBase(BaseCreateSchema):
@@ -62,17 +62,29 @@ class ExtractorUpdate(BaseUpdateSchema):
     performance_notes: Optional[str] = Field(None)
 
 
-class Extractor(BaseSchema, ExtractorBase):
-    """Complete extractor schema for responses."""
+class ExtractorRead(BaseReadSchema, ExtractorBase):
+    """Schema for reading an extractor."""
 
     pass
 
 
-class ExtractorSummary(BaseSchema):
-    """Summary extractor schema for list responses."""
+class ExtractorDelete(BaseDeleteSchema):
+    """Schema for deleting an extractor."""
+
+    pass
+
+
+class ExtractorSummary(BaseReadSchema):
+    """Summary schema for extractor with minimal fields."""
 
     name: str
+    description: Optional[str] = None
+    version: Optional[str] = None
     extractor_type: str
-    version: Optional[str]
-    is_active: bool
-    author: Optional[str]
+    is_active: bool = True
+
+
+class Extractor(ExtractorBase, BaseSchema):
+    """Complete extractor schema for responses, matching the DB model."""
+
+    pass
