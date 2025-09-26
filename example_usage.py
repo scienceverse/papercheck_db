@@ -75,28 +75,41 @@ def demo_schemas():
     
     # Create an extractor
     extractor_data = ExtractorCreate(
-        name="GPT-4 Citation Extractor",
-        description="Uses GPT-4 to extract citations from research papers",
-        version="1.2.0",
-        extractor_type="llm",
-        implementation="python",
+        extractor_type="grobid",
+        version="0.8.3-SNAPSHOT",
+        author="GROBID Team",
+        variant="delft",
+        release_date=datetime(2024, 1, 1).date(),
+        release_git_hash="abc1234567890abcdef1234567890abcdef123456",
+        description="GROBID extractor for parsing scholarly documents with DELFT variant",
+        parser_name="papercheck",
+        parser_version="1.0.0",
+        parser_git_hash="def9876543210fedcba9876543210fedcba987654",
+        parser_config={
+            "extract_references": True,
+            "extract_citations": True,
+            "extract_figures": False
+        },
+        parser_config_hash="567890abcdef567890abcdef567890abcdef567890abcdef567890abcdef5678",
         config_schema={
-            "model": {"type": "string", "default": "gpt-4"},
-            "temperature": {"type": "number", "default": 0.1},
-            "max_tokens": {"type": "integer", "default": 1000}
+            "model": {"type": "string", "default": "delft"},
+            "consolidate_header": {"type": "boolean", "default": True},
+            "consolidate_citations": {"type": "boolean", "default": False}
         },
+        config_hash="1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef",
         default_config={
-            "model": "gpt-4",
-            "temperature": 0.1,
-            "max_tokens": 1000
+            "model": "delft",
+            "consolidate_header": True,
+            "consolidate_citations": False
         },
-        is_active=True,
-        author="Research Team",
-        contact_email="team@university.edu",
-        documentation_url="https://example.com/docs/gpt4-extractor",
-        repository_url="https://github.com/example/gpt4-extractor",
-        supported_formats="PDF, HTML",
-        performance_notes="Optimized for academic papers"
+        docker_image="grobidlab/grobid",
+        docker_tag="0.8.3-SNAPSHOT",
+        docker_digest="sha256:abcd1234567890ef",
+        development_endpoint="http://localhost:8070",
+        development_endpoint_enabled=True,
+        production_endpoint="https://api.grobid.org",
+        production_endpoint_enabled=False,
+        is_enabled=True
     )
     print("Extractor creation schema:")
     pprint(extractor_data.model_dump())
@@ -155,6 +168,11 @@ def demo_model_relationships():
     print(f"- Extract: {Extract.__tablename__}")
     print(f"- GroundTruth: {GroundTruth.__tablename__}")
     print(f"- ExtractEval: {ExtractEval.__tablename__}")
+    print()
+    
+    print("Extractor unique constraint:")
+    print("- Unique by: extractor_type + version + variant + config_hash + parser_config_hash")
+    print("- Extractor names are auto-generated from these fields")
     print()
     
     print("Schema types available for each model:")
@@ -221,6 +239,13 @@ def main():
         print("- Use *Read schemas when fetching records with relationships")
         print("- Use *Update schemas for partial updates")
         print("- Use *Summary schemas for lightweight listings")
+        print()
+        print("🔧 Extractor Schema Notes:")
+        print("- Extractor names are auto-generated properties based on type, variant, version, and hashes")
+        print("- Unique constraint ensures no duplicate extractors with same configuration")
+        print("- Docker fields support containerized extractors")
+        print("- Endpoint fields support both development and production deployments")
+        print("- Parser fields track the parsing layer configuration separately from extractor config")
         
     except Exception as e:
         print(f"❌ Error during demonstration: {e}")
