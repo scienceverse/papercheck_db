@@ -18,9 +18,10 @@ class Paper(BaseModel):
 
     pdf_hash = Column(String(64), unique=True, nullable=True, index=True)  # SHA-256 hash of the PDF
 
-    pdf_start_page = Column(Integer, default=1, nullable=False)
-    pdf_last_page = Column(Integer, nullable=True)  # last page number that is taken into account
+    pdf_actual_start_page = Column(Integer, default=1, nullable=False)
+    pdf_actual_last_page = Column(Integer, nullable=True)  # last page number that is taken into account
 
+    source = Column(String(255), nullable=True)  # Source of the paper (e.g., arXiv, manual upload)
     # Relationships
     extracts = relationship(
         "Extract", back_populates="paper", cascade="all, delete-orphan"

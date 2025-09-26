@@ -11,7 +11,11 @@ class ExtractEval(BaseModel):
 
     __tablename__ = "extractevals"
 
-    # References
+    # Foreign keys
+
+    extract_id = Column(
+        Integer, ForeignKey("extracts.id"), nullable=False, unique=True, index=True
+    )    
     extractor_id = Column(
         Integer, ForeignKey("extractors.id"), nullable=False, index=True
     )
@@ -109,6 +113,7 @@ class ExtractEval(BaseModel):
     )  # Details on evaluation methods used
 
     # Relationships
+    extract = relationship("Extract", back_populates="extract_eval", uselist=False)
     extractor = relationship("Extractor", back_populates="extract_evals")
     ground_truth = relationship("GroundTruth", back_populates="extract_evals")
 

@@ -40,6 +40,9 @@ class Extract(BaseModel):
     # Relationships
     paper = relationship("Paper", back_populates="extracts")
     extractor = relationship("Extractor", back_populates="extracts")
+    extract_eval = relationship(
+        "ExtractEval", back_populates="extract", uselist=False, cascade="all, delete-orphan"
+    )
 
     def __repr__(self):
         return f"<Extract(id={self.id}, paper_id={self.paper_id}, extractor_id={self.extractor_id}, status='{self.status}')>"
