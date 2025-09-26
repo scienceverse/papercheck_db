@@ -1,4 +1,4 @@
-"""ExtractorEval Pydantic schemas."""
+"""ExtractEval Pydantic schemas."""
 
 from typing import Optional, Dict, Any
 from pydantic import Field
@@ -6,11 +6,11 @@ from pydantic import Field
 from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema
 
 
-class ExtractorEvalBase(BaseCreateSchema):
+class ExtractEvalBase(BaseCreateSchema):
     """Base extractor evaluation schema with common fields."""
 
     extractor_id: int = Field(..., description="ID of associated extractor")
-    canon_id: int = Field(..., description="ID of associated canon")
+    ground_truth_id: int = Field(..., description="ID of associated ground truth")
     evaluation_date: Optional[str] = Field(
         None, max_length=50, description="Evaluation date"
     )
@@ -43,13 +43,13 @@ class ExtractorEvalBase(BaseCreateSchema):
     notes: Optional[str] = Field(None, description="Additional notes")
 
 
-class ExtractorEvalCreate(ExtractorEvalBase):
+class ExtractEvalCreate(ExtractEvalBase):
     """Schema for creating an extractor evaluation."""
 
     pass
 
 
-class ExtractorEvalUpdate(BaseUpdateSchema):
+class ExtractEvalUpdate(BaseUpdateSchema):
     """Schema for updating an extractor evaluation."""
 
     evaluation_date: Optional[str] = Field(None, max_length=50)
@@ -70,17 +70,17 @@ class ExtractorEvalUpdate(BaseUpdateSchema):
     notes: Optional[str] = Field(None)
 
 
-class ExtractorEval(BaseSchema, ExtractorEvalBase):
+class ExtractEval(BaseSchema, ExtractEvalBase):
     """Complete extractor evaluation schema for responses."""
 
     pass
 
 
-class ExtractorEvalSummary(BaseSchema):
+class ExtractEvalSummary(BaseSchema):
     """Summary extractor evaluation schema for list responses."""
 
     extractor_id: int
-    canon_id: int
+    ground_truth_id: int
     f1_score: Optional[float]
     overall_rating: Optional[str]
     evaluator: Optional[str]

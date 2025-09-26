@@ -6,7 +6,7 @@ from .dataset import Dataset, dataset_paper_association
 from .ground_truth import GroundTruth
 from .extractor import Extractor
 from .extract import Extract
-from .extractoreval import ExtractorEval
+from .extracteval import ExtractEval
 
 __all__ = [
     "BaseModel",
@@ -16,5 +16,5 @@ __all__ = [
     "GroundTruth",
     "Extractor",
     "Extract",
-    "ExtractorEval",
+    "ExtractEval",
 ]

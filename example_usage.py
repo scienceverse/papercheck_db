@@ -24,7 +24,7 @@ def demo_schemas():
         ExtractorCreate, Extractor,
         GroundTruth, GroundTruth,
         ExtractCreate, Extract,
-        ExtractorEvalCreate, ExtractorEval
+        ExtractEvalCreate, ExtractEval
     )
     
     # Create a paper
@@ -82,14 +82,14 @@ def demo_model_relationships():
     """Demonstrate model relationships."""
     print("🔗 Demonstrating Model Relationships\n")
     
-    from papercheck_db.models import Paper, Dataset, Extractor, Extract, GroundTruth, ExtractorEval
+    from papercheck_db.models import Paper, Dataset, Extractor, Extract, GroundTruth, ExtractEval
     
     print("Model relationships:")
     print("- Papers ↔ Datasets (many-to-many via dataset_papers)")
     print("- Papers → Extracts (one-to-many)")
     print("- Papers → GroundTruths (one-to-many)")
     print("- Extractors → Extracts (one-to-many)")
-    print("- Extractors + GroundTruths → ExtractorEvals (evaluation)")
+    print("- Extractors + GroundTruths → ExtractEvals (evaluation)")
     print()
     
     print("Example table structures:")

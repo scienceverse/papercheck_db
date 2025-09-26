@@ -6,11 +6,11 @@ from .dataset import Dataset, DatasetCreate, DatasetUpdate, DatasetSummary
 from .ground_truth import GroundTruth, GroundTruthCreate, GroundTruthUpdate, GroundTruthSummary
 from .extractor import Extractor, ExtractorCreate, ExtractorUpdate, ExtractorSummary
 from .extract import Extract, ExtractCreate, ExtractUpdate, ExtractSummary
-from .extractoreval import (
-    ExtractorEval,
-    ExtractorEvalCreate,
-    ExtractorEvalUpdate,
-    ExtractorEvalSummary,
+from .extracteval import (
+    ExtractEval,
+    ExtractEvalCreate,
+    ExtractEvalUpdate,
+    ExtractEvalSummary,
 )
 
 __all__ = [
@@ -28,7 +28,7 @@ __all__ = [
     "DatasetCreate",
     "DatasetUpdate",
     "DatasetSummary",
-    # Canon schemas
+    # Ground Truth schemas
     "GroundTruth",
     "GroundTruthCreate",
     "GroundTruthUpdate",
@@ -43,9 +43,9 @@ __all__ = [
     "ExtractCreate",
     "ExtractUpdate",
     "ExtractSummary",
-    # ExtractorEval schemas
-    "ExtractorEval",
-    "ExtractorEvalCreate",
-    "ExtractorEvalUpdate",
-    "ExtractorEvalSummary",
+    # ExtractEval schemas
+    "ExtractEval",
+    "ExtractEvalCreate",
+    "ExtractEvalUpdate",
+    "ExtractEvalSummary",
 ]

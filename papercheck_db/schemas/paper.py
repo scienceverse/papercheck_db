@@ -55,7 +55,7 @@ class PaperUpdate(BaseUpdateSchema):
 class Paper(BaseSchema, PaperBase):
     """Complete paper schema for responses."""
 
-    # Note: extracts, canons, and datasets would be included via relationships
+    # Note: extracts, ground truths, and datasets would be included via relationships
     # but we'll keep them optional to avoid circular imports
     pass
 

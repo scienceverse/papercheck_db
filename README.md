@@ -10,10 +10,10 @@ A modern Python API built with FastAPI, SQLAlchemy, and Alembic for managing res
 
 - **Papers**: Core document entities with DOI, title, PDF handling, and processing status
 - **Datasets**: Named collections of papers with many-to-many relationships
-- **Canons**: Ground truth extractions for papers with structured annotation data
+- **Ground Truths**: Ground truth extractions for papers with structured annotation data
 - **Extractors**: Configurable extraction tools and methods
 - **Extracts**: Results from extraction processes with validation and metrics
-- **ExtractorEvals**: Performance evaluations comparing extracts with ground truth
+- **ExtractEvals**: Performance evaluations comparing extracts with ground truth
 
 ## Quick Start
 
@@ -69,18 +69,18 @@ Required environment variables (see `.env.example`):
 
 - **papers**: Research documents with metadata and processing status
 - **datasets**: Named collections linking to papers via junction table
-- **canons**: Ground truth annotations and extractions
+- **ground_truths**: Ground truth annotations and extractions
 - **extractors**: Tool definitions with configuration schemas
 - **extracts**: Extraction results with confidence and validation data
-- **extractorevals**: Performance metrics and evaluation results
+- **extractevals**: Performance metrics and evaluation results
 
 ### Relationships
 
 - Papers ↔ Datasets (many-to-many)
 - Papers → Extracts (one-to-many)
-- Papers → Canons (one-to-many)
+- Papers → Ground Truths (one-to-many)
 - Extractors → Extracts (one-to-many)
-- Extractors ↔ Canons → ExtractorEvals (evaluation relationships)
+- Extractors ↔ Ground Truths → ExtractEvals (evaluation relationships)
 
 ## Development
 

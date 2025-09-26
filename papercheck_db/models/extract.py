@@ -2,6 +2,7 @@
 
 from sqlalchemy import Column, String, Text, Integer, ForeignKey, JSON, Float
 from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql import JSONB, ARRAY
 
 from .base import BaseModel
 
@@ -19,14 +20,15 @@ class Extract(BaseModel):
 
     # Extraction metadata
     extraction_date = Column(String(50), nullable=True)
-    extractor_version = Column(String(50), nullable=True)
-    config_used = Column(JSON, nullable=True)  # Configuration parameters used
 
-    # Extraction results
-    extracted_data = Column(JSON, nullable=False)  # The actual extracted information
-    raw_output = Column(
-        Text, nullable=True
-    )  # Raw output from extractor (if applicable)
+    # Extraction results, this might change often based on extractor capabilities
+    extracted_title = Column(Text, nullable=True) # Title of the paper
+    extracted_doi = Column(String(255), nullable=True)  # DOI of the paper
+    extracted_authors = Column(JSONB, nullable=True)  # List of authors, along with affiliations and emails, etc.
+    extracted_refs = Column(JSONB, nullable=True)  # List of references
+    extracted_xrefs = Column(JSONB, nullable=True) # List of cross-references
+    extracted_abstract = Column(Text, nullable=True)  # Abstract text
+    extracted_keywords = Column(ARRAY(String), nullable=True)  # List of keywords
 
     # Processing information
     processing_time_seconds = Column(Float, nullable=True)
@@ -34,17 +36,6 @@ class Extract(BaseModel):
         String(50), default="completed", nullable=False
     )  # completed, failed, partial
     error_message = Column(Text, nullable=True)
-
-    # Quality metrics
-    confidence_scores = Column(JSON, nullable=True)  # Per-field confidence scores
-    extraction_quality = Column(String(50), nullable=True)  # overall quality assessment
-
-    # Validation
-    is_validated = Column(
-        String(10), default="false", nullable=False
-    )  # "true"/"false" as string
-    validator = Column(String(255), nullable=True)
-    validation_notes = Column(Text, nullable=True)
 
     # Relationships
     paper = relationship("Paper", back_populates="extracts")

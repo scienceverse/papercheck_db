@@ -1,4 +1,4 @@
-"""Canon model - ground truth extractions for papers."""
+"""Ground Truth model - ground truth extractions for papers."""
 
 from sqlalchemy import Column, String, Text, Integer, ForeignKey, JSON
 from sqlalchemy.dialects.postgresql import ARRAY, JSONB
@@ -16,17 +16,18 @@ class GroundTruth(BaseModel):
     paper_id = Column(Integer, ForeignKey("papers.id"), nullable=False, index=True)
 
    
-    # Core paper information
-    doi = Column(String(255), unique=True, index=True, nullable=True)
-    title = Column(Text, nullable=False)
-    keywords = Column(ARRAY(String(50)), nullable=True)  # PostgreSQL ARRAY
-    description = Column(Text, nullable=True)
-    abstract = Column(Text, nullable=True)
-    authors = Column(JSONB, nullable=True)  # JSON in papercheck format
+    # Extraction results, this might change often based on extractor capabilities
+    title = Column(Text, nullable=True) # Title of the paper
+    doi = Column(String(255), nullable=True)  # DOI of the paper
+    authors = Column(JSONB, nullable=True)  # List of authors, along with affiliations and emails, etc.
+    refs = Column(JSONB, nullable=True)  # List of references
+    xrefs = Column(JSONB, nullable=True) # List of cross-references
+    abstract = Column(Text, nullable=True)  # Abstract text
+    keywords = Column(ARRAY(String), nullable=True)  # List of keywords
     # Relationships
     paper = relationship("Paper", back_populates="ground_truth", uselist=False)
-    extractor_evals = relationship(
-        "ExtractorEval", back_populates="ground_truth", cascade="all, delete-orphan"
+    extract_evals = relationship(
+        "ExtractEval", back_populates="ground_truth", cascade="all, delete-orphan"
     )
 
     def __repr__(self):

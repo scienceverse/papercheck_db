@@ -41,8 +41,8 @@ class Extractor(BaseModel):
     extracts = relationship(
         "Extract", back_populates="extractor", cascade="all, delete-orphan"
     )
-    extractor_evals = relationship(
-        "ExtractorEval", back_populates="extractor", cascade="all, delete-orphan"
+    extract_evals = relationship(
+        "ExtractEval", back_populates="extractor", cascade="all, delete-orphan"
     )
 
     def __repr__(self):
