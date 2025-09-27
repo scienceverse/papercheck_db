@@ -4,7 +4,7 @@ App wrapping the papercheck R library -> database, API, and web interface.
 
 ## Overview
 
-Includes a Vue.js frontend wrapping the Papercheck R library, a PostgreSQL database and a modern Python API built with FastAPI, SQLAlchemy, and Alembic for managing research paper collections, extraction tools, and evaluation metrics.
+Includes a Vue.js frontend wrapping the Papercheck R library + a backend PostgreSQL database with modern Python API built on top with FastAPI, SQLAlchemy, and Alembic for managing research paper collections, extraction tools, and evaluation metrics.
 
 ## Features
 - *Simple user-friendly web interface for quick paper validation using Papercheck  (TODO)*
