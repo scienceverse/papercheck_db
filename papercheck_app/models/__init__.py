@@ -1,4 +1,4 @@
-"""Models package for papercheck_db."""
+"""Models package for papercheck_app."""
 
 from .base import BaseModel
 from .paper import Paper

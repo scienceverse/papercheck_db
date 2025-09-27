@@ -7,11 +7,11 @@ from sqlalchemy import pool
 
 from alembic import context
 
-# Add the papercheck_db package to the path
+# Add the papercheck_app package to the path
 sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 
-from papercheck_db.core.config import settings
-from papercheck_db.core.database import Base
+from papercheck_app.core.config import settings
+from papercheck_app.core.database import Base
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -28,7 +28,7 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # Import all models to ensure they are registered with Base.metadata
-from papercheck_db.models import *  # noqa: F401, F403
+from papercheck_app.models import *  # noqa: F401, F403
 target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,

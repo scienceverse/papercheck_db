@@ -1,4 +1,4 @@
-# papercheck-app
+# papercheck_app
 
 App wrapping the papercheck R library -> database, API, and web interface.
 
@@ -35,8 +35,8 @@ Wraps and integrates with the Papercheck R library. Includes Vue.js frontend + a
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/scienceverse/papercheck_db.git
-cd papercheck_db
+git clone https://github.com/scienceverse/papercheck-app.git
+cd papercheck_app
 ```
 
 2. Install dependencies:

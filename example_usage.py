@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Example script showing how to use the papercheck_db models and schemas."""
+"""Example script showing how to use the papercheck_app models and schemas."""
 
 import os
 from datetime import datetime
@@ -38,7 +38,7 @@ def demo_schemas():
     """Demonstrate how to use Pydantic schemas."""
     print("🔧 Demonstrating Pydantic Schemas\n")
     
-    from papercheck_db.schemas import (
+    from papercheck_app.schemas import (
         PaperCreate, Paper,
         DatasetCreate, Dataset,
         ExtractorCreate, Extractor,
@@ -151,7 +151,7 @@ def demo_model_relationships():
     """Demonstrate model relationships."""
     print("🔗 Demonstrating Model Relationships\n")
     
-    from papercheck_db.models import Paper, Dataset, Extractor, Extract, GroundTruth, ExtractEval
+    from papercheck_app.models import Paper, Dataset, Extractor, Extract, GroundTruth, ExtractEval
     
     print("Model relationships:")
     print("- Papers ↔ Datasets (many-to-many via dataset_paper_association)")
@@ -187,7 +187,7 @@ def demo_configuration():
     """Demonstrate configuration management."""
     print("⚙️  Demonstrating Configuration\n")
     
-    from papercheck_db.core.config import settings
+    from papercheck_app.core.config import settings
     
     print("Configuration settings:")
     print(f"- Environment: {settings.environment}")

@@ -1,4 +1,4 @@
-"""Schemas package for papercheck_db."""
+"""Schemas package for papercheck_app."""
 
 from .base import BaseSchema, BaseCreateSchema, BaseUpdateSchema, BaseDeleteSchema
 from .paper import Paper, PaperCreate, PaperUpdate, PaperRead, PaperDelete, PaperSummary

@@ -1,4 +1,4 @@
-"""Core configuration settings for the papercheck_db application."""
+"""Core configuration settings for the papercheck_app application."""
 
 from typing import Optional
 from pydantic import Field

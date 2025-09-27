@@ -1,10 +1,10 @@
-"""FastAPI application for papercheck_db."""
+"""FastAPI application for papercheck_app."""
 
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
 
-from papercheck_db.core.config import settings
-from papercheck_db.core.database import get_db
+from papercheck_app.core.config import settings
+from papercheck_app.core.database import get_db
 
 app = FastAPI(
     title="PaperCheck DB API",
