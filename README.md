@@ -1,21 +1,29 @@
-# papercheck_db
+# papercheck-app
 
-Config and API for papercheck database -> datasets, papers, extractors, extractor evaluations
+App wrapping the papercheck R library -> database, API, and web interface.
 
 ## Overview
 
-A modern Python API built with FastAPI, SQLAlchemy, and Alembic for managing research paper collections, extraction tools, and evaluation metrics.
+Includes a Vue.js frontend wrapping the Papercheck R library, a PostgreSQL database and a modern Python API built with FastAPI, SQLAlchemy, and Alembic for managing research paper collections, extraction tools, and evaluation metrics.
 
 ## Features
+- *Simple user-friendly web interface for quick paper validation using Papercheck  (TODO)*
+- RESTful API for managing papers, datasets, extractors, and evaluations
+- PostgreSQL database schema designed for research paper management
+- *Admin interface to compare extraction testing results against ground truth data (TODO)*
+- Close integration with dev-server (https://github.com/scienceverse/dev-server) ->
+  - Using/managing custom Grobid/biblio-glutton
+  - *Dashboards to monitor extraction/processing accuracy over time in Grafana (TODO)*
 
+## Key DB Entities
 - **Papers**: Core document entities with DOI, title, PDF handling, and processing status
 - **Datasets**: Named collections of papers with many-to-many relationships
-- **Ground Truths**: Ground truth extractions for papers with structured annotation data
-- **Extractors**: Configurable extraction tools and methods
-- **Extracts**: Results from extraction processes with validation and metrics
-- **ExtractEvals**: Performance evaluations comparing extracts with ground truth
+- **Ground Truths**: Ground truth extractions for papers
+- **Extractors**: Configurable extraction tools and methods (Grobid)
+- **Extracts**: Raw data from extraction
+- **ExtractEvals**: Scores (f1, levenshtein, etc.) comparing extracts with ground truth
 
-## Quick Start
+## Quick Start (API only, frontend TODO)
 
 ### Prerequisites
 
@@ -92,12 +100,6 @@ The project uses modern Python tooling:
 - **Ruff**: Fast linting and import sorting
 - **Poetry**: Dependency management
 - **Pydantic**: Data validation and settings
-
-### Testing
-
-```bash
-poetry run pytest
-```
 
 ### Database Migrations
 
